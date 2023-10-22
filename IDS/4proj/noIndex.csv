@@ -1,0 +1,26 @@
+PLAN_TABLE_OUTPUT
+Plan hash value: 2893114331
+ 
+------------------------------------------------------------------------------------
+| Id  | Operation             | Name       | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT      |            |    21 |  1995 |    11  (19)| 00:00:01 |
+|   1 |  SORT ORDER BY        |            |    21 |  1995 |    11  (19)| 00:00:01 |
+|   2 |   HASH GROUP BY       |            |    21 |  1995 |    11  (19)| 00:00:01 |
+|*  3 |    HASH JOIN          |            |    21 |  1995 |     9   (0)| 00:00:01 |
+|*  4 |     HASH JOIN         |            |    21 |  1554 |     6   (0)| 00:00:01 |
+|   5 |      TABLE ACCESS FULL| OBJEDNAVKA |     7 |   280 |     3   (0)| 00:00:01 |
+|   6 |      TABLE ACCESS FULL| KNIHAKOSIK |    21 |   714 |     3   (0)| 00:00:01 |
+|   7 |     TABLE ACCESS FULL | KNIHA      |    11 |   231 |     3   (0)| 00:00:01 |
+------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   3 - access("KNIHAKOSIK"."ISBN_KNIHA"="KNIHA"."ISBN")
+   4 - access("KNIHAKOSIK"."ID_KOSIK"="OBJEDNAVKA"."ID_KOSIK")
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+   - this is an adaptive plan

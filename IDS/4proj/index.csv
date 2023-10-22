@@ -1,0 +1,33 @@
+PLAN_TABLE_OUTPUT
+Plan hash value: 1197759116
+ 
+-----------------------------------------------------------------------------------------------------------
+| Id  | Operation                                | Name           | Rows  | Bytes | Cost (%CPU)| Time     |
+-----------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                         |                |     1 |   103 |     6  (34)| 00:00:01 |
+|   1 |  SORT ORDER BY                           |                |     1 |   103 |     6  (34)| 00:00:01 |
+|   2 |   HASH GROUP BY                          |                |     1 |   103 |     6  (34)| 00:00:01 |
+|   3 |    NESTED LOOPS                          |                |     1 |   103 |     4   (0)| 00:00:01 |
+|   4 |     NESTED LOOPS                         |                |     1 |   103 |     4   (0)| 00:00:01 |
+|   5 |      NESTED LOOPS                        |                |     1 |    82 |     4   (0)| 00:00:01 |
+|   6 |       MERGE JOIN CARTESIAN               |                |     1 |    48 |     3   (0)| 00:00:01 |
+|   7 |        INDEX FULL SCAN                   | SYS_C003685456 |     1 |     8 |     0   (0)| 00:00:01 |
+|   8 |        BUFFER SORT                       |                |     7 |   280 |     3   (0)| 00:00:01 |
+|   9 |         TABLE ACCESS FULL                | OBJEDNAVKA     |     7 |   280 |     3   (0)| 00:00:01 |
+|  10 |       TABLE ACCESS BY INDEX ROWID BATCHED| KNIHAKOSIK     |     3 |   102 |     1   (0)| 00:00:01 |
+|* 11 |        INDEX RANGE SCAN                  | PLAN_INDEX     |     3 |       |     0   (0)| 00:00:01 |
+|* 12 |      INDEX UNIQUE SCAN                   | SYS_C003685424 |     1 |       |     0   (0)| 00:00:01 |
+|  13 |     TABLE ACCESS BY INDEX ROWID          | KNIHA          |     1 |    21 |     0   (0)| 00:00:01 |
+-----------------------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+  11 - access("KNIHAKOSIK"."ID_KOSIK"="OBJEDNAVKA"."ID_KOSIK")
+  12 - access("KNIHAKOSIK"."ISBN_KNIHA"="KNIHA"."ISBN")
+       filter("KNIHA"."ISBN"="SKLAD"."ISBN")
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2)
+   - this is an adaptive plan
