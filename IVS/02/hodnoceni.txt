@@ -1,0 +1,3 @@
+xsafar27 120 (GUI, od-instalator, programova dokumentace)
+xzelin26 60 (uzivatelska dokumentace, betatesting)
+xzelin27 120 (mat. knihovna, testy)

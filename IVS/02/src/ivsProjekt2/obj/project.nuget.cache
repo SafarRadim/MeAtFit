@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "/N5SxlxODjXe6ND+bAfXhmmAt3M9aB8sMeSZNrMUT+DclWTg7AvBj7zDBUEsu/XLryRLOk0S7gRX1Sk6vDTXgA==",
+  "success": true,
+  "projectFilePath": "D:\\FIT\\IVS\\ivs_pr2\\src\\ivsProjekt2\\ivsProjekt2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\safar\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\safar\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\safar\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\safar\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}

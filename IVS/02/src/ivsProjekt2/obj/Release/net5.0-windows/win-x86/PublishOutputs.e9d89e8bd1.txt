@@ -1,0 +1,3 @@
+D:\FIT\IVS\out\GC_Calculator.pdb
+D:\FIT\IVS\out\MathLib.pdb
+D:\FIT\IVS\out\GC_Calculator.exe

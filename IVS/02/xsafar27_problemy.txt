@@ -1,0 +1,24 @@
+Komunikace v tymu
+    - Hlavni problem byl nesetkavani se osobne
+    - Vzhledem k tomu ze projekt byl stylem "sem tam neco a zbytek na konec", tak pote ta komunikace byla velmi rychla
+
+Spoluprace
+    - Jeden clen tymu zmizel, nereagoval, a pote se najednou den pred odevzdanim objevil, ze jestli jsme se na nej uz vykaslali a nebo jeste ma co delat
+
+Vedeni
+    - Spatne definovane body v planu, stalo se tak ze GUI melo tak 5x vic radku jak matematicka knihovna, nepocitan xaml soubor
+    - Netlaceni na terminy
+
+Terminy
+    - Absolutne nedorzene
+    - Je super ze byl plan, ale kdyz se podle planu nejelo tak byl na nic
+
+Aktivita
+    - Ze zacatku nikdo nic
+    - Potom prvni PR
+    - Nakonec se to stejnak delalo na posledni chvili :) 
+
+Nejvetsi problemy:
+    1) Zmizeni clena tymu - Nejen ze me to nastvalo, ale take se kvuli tomu ze nedal vedet ze to nedava jaksi nepocitalo s tim, ze se to bude muset za nej dodelatav
+    2) Netlaceni na terminy - jak jsem jiz psal, plan je super, ale potom se je potreba ho drzet
+    3) Nedostatek osobnich setkani - tydeni meeting by nas tak lehce nakopl smerem k tomu, ze budeme delat tak jak bylo v planu

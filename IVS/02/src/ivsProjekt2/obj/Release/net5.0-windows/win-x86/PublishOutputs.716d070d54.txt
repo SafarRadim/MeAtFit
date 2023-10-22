@@ -1,0 +1,3 @@
+D:\FIT\IVS\ivs_pr2\src\ivsProjekt2\bin\publish\GC_Calculator.pdb
+D:\FIT\IVS\ivs_pr2\src\ivsProjekt2\bin\publish\MathLib.pdb
+D:\FIT\IVS\ivs_pr2\src\ivsProjekt2\bin\publish\GC_Calculator.exe

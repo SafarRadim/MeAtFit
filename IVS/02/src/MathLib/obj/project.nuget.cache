@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "roWs2VJfaGmiFwpiiLSmt9k2cJu7ivBHIFe4LhO2FLINh3F7UeIMEHgqz02ppKcy7XTuunaKxF0sG46YaIV4RA==",
+  "success": true,
+  "projectFilePath": "D:\\FIT\\IVS\\ivs_pr2\\src\\MathLib\\MathLib.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\safar\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\safar\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\safar\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
