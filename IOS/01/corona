@@ -1,0 +1,646 @@
+#!/bin/sh
+
+export POSIXLY_CORRECT=yes
+export LC_ALL=C
+
+print_help()
+{
+    echo "Usage: corona [-h]"
+    echo "       corona [FILTERS] [COMMAND] [LOG [LOG2 [...]]"
+    echo ""
+    echo "With no LOG reads stdin."
+    echo "With no COMMAND and FILTER, echoes LOG"
+    echo "Default COMMAND is merge"
+    echo "Supports csv filetype. Compression .gz and .bz2"
+    echo ""
+    echo "FILTERS:"
+    echo ""
+    echo "-a DATETIME   Shows data after DATETIME (included), format YYYY-MM-DD"
+    echo "-b DATETIME   Shows data before DATETIME (included), format YYYY-MM-DD"
+    echo "-g GENDER     Shows data only for GENDER. M for males, Z for females."
+    echo "-s [WIDTH]    Shows data graphically. WIDTH sets the width of histogram."
+    echo ""
+    echo "COMMAND:"
+    echo ""
+    echo "infected      Counts amount of infected"
+    echo "merge         Merges multiple LOG files keeping order."
+    echo "gender        Shows amount of infected for each gender."
+    echo "age           Shows amount of infected for each age category."
+    echo "daily         Shows amount of infected for each day."
+    echo "monthly       Shows amount of infected for each month."
+    echo "yearly        Shows amount of infected for each year."
+    echo "countries     Shows amount of infected for each coutry excluding CZ."
+    echo "districts     Shows amount of infected for each district."
+    echo "regions       Shows amount of infected for each region."
+}
+
+
+
+infected()
+{
+    out=$(echo "$FILE" | awk -F ',' \
+    '{
+        if ($3 ~ /^[0-9]*$/) 
+        { 
+            count++
+        }
+    } END {
+        print count
+    }')
+}
+
+merge()
+{
+    out=$(echo "$FILE" | awk -F ',' -v head="$HEADER"\
+    'BEGIN{
+        print head    
+    }{
+        if ($3 ~ /^[0-9]*$/) 
+        {
+            print $0
+        }
+    }')
+}
+
+gender()
+{
+    out=$(echo "$FILE" | awk -F ','\
+    '{
+        if ($4 == "M")
+        {
+            Mcount++
+        } else if ($4 == "Z")
+        {
+            Zcount++
+        } else if ($4 == "")
+        {
+            Ncount++
+        }
+    } END {
+        printf("M: %d\n", Mcount)
+        printf("Z: %d\n", Zcount)
+        if (Ncount != 0) {printf("None: %d\n", Ncount)}
+    }')
+}
+
+age()
+{
+    out=$(echo "$FILE" | awk -F ',' \
+    '{
+        if ($3 <= 5)
+        {
+            count_0_5++
+        } else if ($3 <= 15)
+        {
+            count_6_15++
+        } else if ($3 <= 25)
+        {
+            count_16_25++
+        } else if ($3 <= 35)
+        {
+            count_26_35++
+        } else if ($3 <= 45)
+        {
+            count_36_45++
+        } else if ($3 <= 55)
+        {
+            count_46_55++
+        } else if ($3 <= 65)
+        {
+            count_56_65++
+        } else if ($3 <= 75)
+        {
+            count_66_75++
+        } else if ($3 <= 85)
+        {
+            count_76_85++
+        } else if ($3 <= 95)
+        {
+            count_86_95++
+        } else if ($3 <= 105)
+        {
+            count_96_105++
+        } else {
+            count_105++
+        }
+    } END {
+        printf("0-5   : %d\n", count_0_5)
+        printf("6-15  : %d\n", count_6_15)
+        printf("16-25 : %d\n", count_16_25)
+        printf("26-35 : %d\n", count_26_35)
+        printf("36-45 : %d\n", count_36_45)
+        printf("46-55 : %d\n", count_46_55)
+        printf("56-65 : %d\n", count_56_65)
+        printf("66-75 : %d\n", count_66_75)
+        printf("76-85 : %d\n", count_76_85)
+        printf("86-95 : %d\n", count_86_95)
+        printf("95-105: %d\n", count_96_105)
+        printf(">105  : %d\n", count_105)
+    }')
+}
+
+daily()
+{
+    FILE=$(echo "$FILE" | sort -t, -k2)
+    out=$(echo "$FILE" | awk -F ',' \
+    '{
+        if (NR == 1) { date = $2 }
+
+        if (date == $2)
+        {
+            count++
+        } 
+        else 
+        {
+            if (date == "") { date = "None" }
+            printf("%s: %d\n", date, count)
+            date = $2
+            count = 1
+        }
+    } END {
+        printf("%s: %d\n", date, count)    
+    }')
+}
+
+monthly()
+{
+    FILE=$(echo "$FILE" | sort -t, -k2)
+    out=$(echo "$FILE" | awk -F ',' \
+    '{
+        if (NR == 1) 
+        { 
+            split($2, dateSplit, "-")
+            month = dateSplit[2]
+        }
+
+        split($2, dateSplit, "-")
+        if (month == dateSplit[2])
+        {
+            count++
+            year = dateSplit[1]
+        }
+        else
+        {
+            if (year == "")
+            {
+                printf ("%s: %d\n"), "None", count
+            } 
+            else 
+            {
+                printf("%s-%s: %d\n", year, month, count)
+            }
+            month = dateSplit[2]
+            year = dateSplit[1]
+            count = 1
+        }
+    } END {
+        printf("%s-%s: %d\n", year, month, count)   
+    }')
+}
+
+yearly()
+{
+    FILE=$(echo "$FILE" | sort -t, -k2)
+    out=$(echo "$FILE" | awk -F ',' \
+    '{  
+        if (NR == 1)
+        { 
+            split($2, dateSplit, "-")
+            date = dateSplit[1]
+        }
+        split($2, dateSplit, "-")
+        if (date == dateSplit[1])
+        {
+            count++
+        }
+        else
+        {
+            if (date == "") { date = "None" }
+            printf("%s: %d\n", date, count)
+            date = dateSplit[1]
+            count = 1
+        }
+    } END {
+        printf("%s: %d\n", dateSplit[1], count)   
+    }')
+}
+
+countries()
+{
+    FILE=$(echo "$FILE" | sort -t, -k8)
+    out=$(echo "$FILE" | awk -F ',' \
+    '{
+        if (NR == 1) { country = $8}
+
+        if ($8 == "CZ" || $8 ~ /^$/)
+        {
+            next
+        }
+
+        if (country == $8)
+        {
+            count++
+        }
+        else
+        {
+            printf("%s: %d\n", country, count)
+            country = $8
+            count = 1
+        }
+    } END {
+        printf("%s: %d\n", country, count)
+    }')
+}
+
+districts()
+{
+    FILE=$(echo "$FILE" | sort -t, -k6)
+    out=$(echo "$FILE" | awk -F ',' \
+    '{
+        if (NR == 1) { district = $6}
+
+        if (district == $6)
+        {
+            count++
+        }
+        else
+        {
+            if (district == "") { district = "None" }
+            printf("%s: %d\n", district, count)
+            district = $6
+            count = 1
+        }
+    } END {
+        printf("%s: %d\n", district, count)
+    }')
+}
+
+regions()
+{
+    FILE=$(echo "$FILE" | sort -t, -k5)
+    out=$(echo "$FILE" | awk -F ',' \
+    '{
+        if (NR == 1) { region = $5}
+
+        if (region == $5)
+        {
+            count++
+        }
+        else
+        {
+            if (region=="") { region = "None" }
+            printf("%s: %d\n", region, count)
+            region = $5
+            count = 1
+        }
+    } END {
+        printf("%s: %d\n", region, count)
+    }')
+}
+
+headlinttemp()
+{
+    temp=$(echo "$temp" | awk \
+    '{
+        if (NR == 1) { next }
+        print $0
+    }')
+}
+
+headlintfile()
+{
+    FILE=$(echo "$FILE" | awk \
+    '{
+        if (NR == 1) { next }
+        print $0
+    }')
+}
+
+datalint()
+{
+    temp=$(echo "$temp" | awk -F ',' -v err="$awkerr"\
+    '{
+        if (NR == 1) { next }
+        
+        if ($2 ~ /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)
+        {
+            if (!("date -d $2 > /dev/null 2>&1 > /dev/null; echo $?"))
+            {
+                err+="Invalid date: " $0 "\n"
+                next
+            }
+        } 
+        else if ($2 != "")
+        {
+            err+="Invalid date: " $0 "\n"
+            next
+        }
+
+        if ($3 ~ /^[0-9]+$/ || $3 == "")
+        {
+            print $0
+        } 
+        else
+        {
+            err+="Invalid age: " $0 "\n"
+            next
+        }
+    }')
+}
+
+after()
+{
+    FILE=$(echo "$FILE" | awk -F ',' -v date="$AFTER"\
+    '{
+        if ($2 >= date)
+        {
+            print $0
+        }
+    }')
+}
+
+before()
+{
+    FILE=$(echo "$FILE" | awk -F ',' -v date="$BEFORE"\
+    '{
+        if ($2 <= date)
+        {
+            print $0
+        }
+    }')
+}
+
+genderF()
+{
+    FILE=$(echo "$FILE" | awk -F ',' -v gender="$GENDER"\
+    '{
+        if ($4 == gender)
+        {
+            print $0
+        }
+    }')
+}
+
+BEFORE=0
+AFTER=0
+WIDTH=0
+WIDTHB=0
+COMMAND=1
+GENDER=0
+FILE=""
+awkerr=""
+HEADER="id,datum,vek,pohlavi,kraj_nuts_kod,okres_lau_kod,nakaza_v_zahranici,nakaza_zeme_csu_kod,reportovano_khs"
+
+while [ "$#" -gt 0 ] 
+do
+    case "$1" in 
+    -h)
+        print_help
+        exit 0
+        ;;
+    
+    -a)
+        AFTER="$2"
+        shift
+        shift
+        ;;
+
+    -b)
+        BEFORE="$2"
+        shift
+        shift
+        ;;
+    
+    -g)
+        GENDER="$2"
+        shift
+        shift
+        ;;
+
+    -s)
+        WIDTHB=1
+        digitRegex="[[:digit:]]+"
+        if [[ $2 =~ $digitRegex ]]
+        then
+            WIDTH="$2"
+            shift
+        fi
+        shift
+        ;;
+    
+    infected)
+        COMMAND="0"
+        shift
+    ;;
+
+    merge)
+        COMMAND="1"
+        shift
+    ;;
+    
+    gender)
+        COMMAND="2"
+        shift
+    ;;
+
+    age)
+        COMMAND="3"
+        shift
+    ;;
+
+    daily)
+        COMMAND="4"
+        shift
+    ;;
+
+    monthly)
+        COMMAND="5"
+        shift
+    ;;
+
+    yearly)
+        COMMAND="6"
+        shift
+    ;;
+
+    countries)
+        COMMAND="7"
+        shift
+        ;;
+
+    districts)
+        COMMAND="8"
+        shift
+    ;;
+
+    regions)
+        COMMAND="9"
+        shift
+    ;;
+
+    *.csv)
+        temp=$(cat "$1")
+        temp=$(echo "$temp" | sed '1s/^\xEF\xBB\xBF//')
+        headlinttemp
+        if [ "$FILE" = "" ]
+        then
+            FILE=$temp
+        else
+            printf -v FILE "%s\n%s", "$FILE", "$temp"
+        fi
+        shift
+        ;;
+
+    *.csv.gz)
+        temp=$(zcat "$1")
+        temp=$(echo "$temp" | sed '1s/^\xEF\xBB\xBF//')
+        headlinttemp
+        if [ "$FILE" = "" ]
+        then
+            FILE=$temp
+        else
+            printf -v FILE "%s\n%s", "$FILE", "$temp"
+        fi
+        shift
+        ;;
+
+    *.csv.bz2)
+        temp=$(bzcat "$1")
+        temp=$(echo "$temp" | sed '1s/^\xEF\xBB\xBF//')
+        headlinttemp
+        if [ "$FILE" = "" ]
+        then
+            FILE=$temp
+        else
+            printf -v FILE "%s\n%s", "$FILE", "$temp"
+        fi
+        shift
+        ;;
+
+    -*)
+        echo "Unknown switch. $1"
+        exit 0
+        ;;
+
+    *)
+        echo "Unknown $1"
+        exit 0
+        ;;
+    esac
+done
+
+if [ "$FILE" = "" ]
+then
+    FILE=$(cat)
+    headlintfile
+fi
+
+if [ "$AFTER" != 0 ]
+then
+    after
+fi
+
+if [ "$BEFORE" != 0 ]
+then
+    before
+fi
+
+if [ "$GENDER" != 0 ]
+then
+    genderF
+fi
+
+case "$COMMAND" in
+    0)
+        infected
+        ;;
+    1)
+        merge
+        ;;
+    2)
+        gender
+        ;;
+    3)
+        age
+        ;;
+    4)
+        daily
+        ;;
+    5)
+        monthly
+        ;;
+    6)
+        yearly
+        ;;
+    7)
+        countries
+        ;;
+    8)
+        districts
+        ;;
+    9)
+        regions
+        ;;
+esac
+
+if [ "$WIDTHB" == 1 ]
+then
+    if [ "$WIDTH" == 0 ]
+    then
+        case "$COMMAND" in
+            2)
+                PERTAG=10000
+                ;;
+            3)
+                PERTAG=10000
+                ;;
+            4)
+                PERTAG=500
+                ;;
+            5)
+                PERTAG=10000
+                ;;
+            6)
+                PERTAG=100000
+                ;;
+            7)
+                PERTAG=100
+                ;;
+            8)
+                PERTAG=1000
+                ;;
+            9)
+                PERTAG=10000
+                ;;
+        esac
+        
+        out=$(echo "$out" | awk -F ':' -v per="$PERTAG"\
+        '{
+            amount = int($2/per)
+            printf "%s: ", $1
+            for(i=0;i<amount;i++) printf "#"
+            printf "\n"
+        }')
+
+    else
+        PERTAG="$WIDTH"
+        PERTAG=$(echo "$out" | awk -F ':' -v per="$PERTAG"\
+        '{
+            if (NR==1) { max = $2 }
+            if (max < $2) { max = $2 }
+        } END {
+            per = max/per
+            print per
+        }')
+
+        out=$(echo "$out" | awk -F ":" -v per="$PERTAG" \
+        '{
+            amount = int($2/per)
+            printf "%s: ", $1
+            for(i=0;i<amount;i++) printf "#"
+            printf "\n"
+        }')
+    fi
+fi
+
+echo "$out"
