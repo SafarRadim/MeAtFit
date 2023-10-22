@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="project.App.Views.Project.ProjectEditView"
+                       xmlns:views="clr-namespace:project.App.Views"
+                       xmlns:vm="clr-namespace:project.App.ViewModels"
+                       xmlns:components="clr-namespace:project.App.Views.Project"
+                       xmlns:models="clr-namespace:project.BL.Models;assembly=project.BL"
+                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                       Title="Edit Project"
+                       x:DataType="vm:ProjectEditViewModel">
+    <Grid RowDefinitions="auto,auto,auto,auto,auto"
+          ColumnDefinitions="auto,auto"
+          Padding="20"
+          ColumnSpacing="20"
+          RowSpacing="35"
+          HorizontalOptions="Center">
+        
+        <VerticalStackLayout Grid.Row="0">
+            <Label Text="Project name" 
+                   Padding="0, 0, 0, 10"/>
+            <Entry WidthRequest="300"
+                   HorizontalOptions="Start"
+                   Text="{Binding Project.Name}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1"
+                             Grid.ColumnSpan="2">
+        <Label Text="Description" 
+               Padding="0, 0, 0, 10"/>
+        <Editor MinimumHeightRequest="80"
+                Text="{Binding Project.Description}"
+                AutoSize="TextChanges" />
+        </VerticalStackLayout>
+
+        <Button Text="Save"
+                WidthRequest="150"
+                HeightRequest="30"
+                Margin="0,20,0,0" 
+                Style="{StaticResource PrimaryButtonStyle}"
+                Command="{Binding SaveCommand}"
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalOptions="End"/>
+    </Grid>
+</views:ContentPageBase>

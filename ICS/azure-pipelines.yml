@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-2022
+
+steps:
+- task: UseDotNet@2
+  displayName: Use .NET 7.0
+  inputs:
+    packageType: sdk
+    version: 7.x
+
+- script: dotnet workload install maui-maccatalyst maui-android maui-tizen
+  displayName: Install maui workload
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: build
+    projects: ./project.sln
+
+- task: DotNetCoreCLI@2
+  inputs:
+   command: test
+   projects: ./project.sln

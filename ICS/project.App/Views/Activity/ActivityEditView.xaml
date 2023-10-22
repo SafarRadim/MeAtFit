@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="project.App.Views.Activity.ActivityEditView"
+                       xmlns:views="clr-namespace:project.App.Views"
+                       Title="ActivityEditView"
+                       xmlns:vm="clr-namespace:project.App.ViewModels"
+                       x:DataType="vm:ActivityEditViewModel">
+    <Grid RowDefinitions="auto, auto, auto, auto"
+          ColumnDefinitions="auto, auto"
+          Padding="20"
+          ColumnSpacing="20"
+          RowSpacing="35"
+          HorizontalOptions="Center">
+
+        <VerticalStackLayout Grid.Row="0"
+                             Grid.Column="0">
+            <Label Text="Activity name"
+                   Padding="0, 0, 0, 10"/>
+            <Entry WidthRequest="300"
+                   HorizontalOptions="Start"
+                   Text="{Binding Activity.Name}"/> 
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="0"
+                             Grid.Column="1">
+            <Label Text="Project (Optional)"
+                   Padding="0, 0, 0, 10"/>
+            <Picker WidthRequest="300"
+                    HorizontalOptions="Start"
+                    ItemsSource="{Binding Projects}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding ProjectSelected}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Label Text="Start"
+                   Padding="0, 0, 0, 10"/>
+            <DatePicker Date="{Binding Activity.Start}"
+                        WidthRequest="150"
+                        HorizontalOptions="Start"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1"
+                             Grid.Column="1">
+            <Label Text="End"
+                   Padding="0, 0, 0, 10"/>
+            <DatePicker Date="{Binding Activity.End}"
+                        WidthRequest="150"
+                        HorizontalOptions="Start"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2"
+                             Grid.ColumnSpan="2">
+            <Label Text="Description"
+                   Padding="0, 0, 0, 10" />
+            <Editor MinimumHeightRequest="80"
+                    AutoSize="TextChanges"
+                    Text="{Binding Activity.Description}" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="3"
+                             Grid.Column="1">
+            <Button Text="Save"
+                    WidthRequest="150"
+                    HeightRequest="30"
+                    Margin="0,20,0,0" 
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding SaveCommand}"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    HorizontalOptions="End"/>
+        </VerticalStackLayout>
+
+    </Grid>
+</views:ContentPageBase>

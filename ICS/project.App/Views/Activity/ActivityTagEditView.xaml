@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="project.App.Views.Activity.ActivityTagEditView"
+                       xmlns:views="clr-namespace:project.App.Views"
+                       xmlns:vm="clr-namespace:project.App.ViewModels"
+                       xmlns:models="clr-namespace:project.BL.Models;assembly=project.BL"
+                       Title="My Activities"
+                       x:DataType="vm:ActivityTagEditViewModel"
+                       x:Name="ActivityTagEditViewRoot">
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto">
+        <Label Grid.Row="0"
+               Text="{Binding Activity.Name}"
+               Margin="20,20,0,0"
+               FontAttributes="Bold"
+               FontSize="35" />
+
+        <Label Grid.Row="1" 
+               Text="Tags" 
+               Margin="20,30,0,0" 
+               FontSize="30" 
+               FontAttributes="Bold"/>
+        
+        <Grid Grid.Row="2"
+              ColumnDefinitions="150, Auto"
+              ColumnSpacing="20"
+              Margin="20, 20, 0, 0">
+            <Picker Grid.Column="0"
+                    ItemsSource="{Binding Tags}"
+                    ItemDisplayBinding="{Binding TagName}"
+                    SelectedItem="{Binding TagSelected}"
+                    WidthRequest="150"/>
+            <Button Grid.Column="1"
+                    Text="Add Tag"
+                    HorizontalOptions="Start"
+                    Command="{Binding AddNewTagCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}"/>
+
+        </Grid>
+
+        <CollectionView Grid.Row="3"
+                        Margin="20,20,0,0"
+                        ItemsSource="{Binding Activity.TagActivities}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TagActivityDetailModel">
+                    <Grid ColumnDefinitions="150, Auto">
+                        <Label Grid.Column="0"
+                               FontSize="24"
+                               Text="{Binding TagName}"/>
+                        <Button Grid.Column="1"
+                            Text="Delete" 
+                            Margin="20,0,0,0"
+                            BackgroundColor="Red"
+                            Command="{Binding Source={x:Reference ActivityTagEditViewRoot}, Path=BindingContext.RemoveTagCommand}"
+                            CommandParameter="{Binding .}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</views:ContentPageBase>

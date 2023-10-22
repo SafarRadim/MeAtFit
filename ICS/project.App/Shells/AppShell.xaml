@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:p="clr-namespace:project.App.Views.Project"
+       xmlns:a="clr-namespace:project.App.Views.Activity"
+       xmlns:o="clr-namespace:project.App.Views.Others"
+       xmlns:t="clr-namespace:project.App.Views.Tag"
+       xmlns:dd="clr-namespace:project.App.Views.User"
+       x:Class="project.App.Shells.AppShell"
+       x:Name="AppShellRoot"
+       FlyoutBehavior="Disabled">
+    <Shell.MenuBarItems>
+        <MenuBarItem Text="Tracker">
+            <MenuFlyoutItem Text="Projects"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToProjectsCommand}" />
+            <MenuFlyoutItem Text="Activities"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToActivitiesCommand}" />
+            <MenuFlyoutItem Text="Tags"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToTagsCommand}" />
+            <MenuFlyoutItem Text="My Profile"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path= GoToUserDetailCommand}" />
+        </MenuBarItem>
+    </Shell.MenuBarItems>
+
+    <ShellContent ContentTemplate="{DataTemplate o:UserListView}"
+                  Route="user" />
+    <ShellContent ContentTemplate="{DataTemplate p:ProjectListView}"
+                  Route="projects" />
+    <ShellContent ContentTemplate="{DataTemplate a:ActivityListView}"
+                  Route="activities" />
+    <ShellContent ContentTemplate="{DataTemplate t:TagListView}"
+                  Route="tags" />
+</Shell>

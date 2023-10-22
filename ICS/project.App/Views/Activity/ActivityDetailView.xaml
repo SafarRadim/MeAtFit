@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:project.App.Views"
+                       xmlns:vm="clr-namespace:project.App.ViewModels"
+                       x:Class="project.App.Views.Activity.ActivityDetailView"
+                       xmlns:models="clr-namespace:project.BL.Models;assembly=project.BL"
+                       Title="Activity Detail"
+                       x:Name="ActivityDetailViewRoot"
+                       x:DataType="vm:ActivityDetailViewModel">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+        <VerticalStackLayout VerticalOptions="FillAndExpand"
+                             Background="pink">
+            <Image Source="{Binding User.ImageUrl, TargetNullValue='dotnet_bot.png'}"
+                   HeightRequest="150"
+                   WidthRequest="150"
+                   Grid.Row="0"
+                   Margin="0, 20, 0, 0" />
+            <Label FontSize="20"
+                   Text="{Binding User.Name}"
+                   HorizontalOptions="CenterAndExpand" />
+            <Button Text="Log Out"
+                    MaximumWidthRequest="150"
+                    Command="{Binding LogoutCommand}"
+                    MaximumHeightRequest="50" />
+
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Column="1">
+            <Label Text="{Binding Activity.Name}"
+                   Margin="20,20,0,0"
+                   FontAttributes="Bold"
+                   FontSize="35" />
+            <BoxView BackgroundColor="White"
+                     HeightRequest="1"
+                     Margin="20,5,20,5" />
+            <Label Text="{Binding Activity.Description}"
+                   Margin="20,0,0,0"
+                   FontAttributes="Italic"
+                   FontSize="20" />
+            <HorizontalStackLayout>
+                <VerticalStackLayout Margin="20,30,0,0">
+                    <Label Text="Start Date"
+                           FontSize="25"
+                           FontAttributes="Bold"
+                           TextColor="#90EE90" />
+                    <Label Text="{Binding Activity.Start, StringFormat='{0:dd.MM.yyyy}'}"
+                           FontSize="20"
+                           Margin="15,5,0,0" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Margin="100,30,0,0">
+                    <Label Text="Deadline"
+                           FontSize="25"
+                           FontAttributes="Bold"
+                           TextColor="#CD5C5C" />
+                    <Label Text="{Binding Activity.End, StringFormat='{0:dd.MM.yyyy}'}"
+                           FontSize="20"
+                           Margin="15,5,0,0" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Margin="100, 30, 0, 0">
+                    <Label Text="Project"
+                           FontSize="25"/>
+                    <Label Text="{Binding Project.Name}"
+                           FontSize="20"
+                           Margin="15, 5, 0, 0"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            <Label Text="Tags:" Margin="20,30,0,0" FontSize="30" FontAttributes="Bold"/>
+            <CollectionView Grid.Row="5"
+                            Margin="40,20,0,0"
+                            ItemsSource="{Binding Activity.TagActivities}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TagActivityDetailModel">
+                        <Label FontSize="24"
+                               Text="{Binding TagName}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Margin="10,20,10,0"
+                             Grid.Column="2"
+                             Spacing="25">
+            <Button Text="Tags"
+                    CornerRadius="5"
+                    BackgroundColor="CornflowerBlue"
+                    Command="{Binding GoToTagsCommand}"/>
+
+            <Button Text="Delete"
+                    CornerRadius="5"
+                    BackgroundColor="Red"
+                    Command="{Binding DeleteCommand}" />
+
+            <Button Text="Edit"
+                    CornerRadius="5"
+                    BackgroundColor="Green"
+                    Command="{Binding GoToEditCommand}" />
+        </VerticalStackLayout>
+    </Grid>
+</views:ContentPageBase>

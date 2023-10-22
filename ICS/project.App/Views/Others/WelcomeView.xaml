@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:views="clr-namespace:project.App.Views"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="project.App.Views.Others.WelcomeView"
+                       xmlns:components="clr-namespace:project.App.Views.Others"
+                       Title="UserDetailView">
+    <Grid ColumnDefinitions="200, *">
+        <components:SidePanel />
+
+        <Grid Grid.Column="1"
+              RowDefinitions="auto, auto, auto, *"
+              ColumnDefinitions="*, 200"
+              RowSpacing="20"
+              Padding="50">
+            <Label Text="Welcome back, Mirko" />
+            <Label Grid.Column="2"
+                   Grid.RowSpan="2"
+                   BackgroundColor="pink"
+                   Text="Friday, Feb 17" />
+            <Label Grid.Row="2"
+                   Grid.ColumnSpan="2"
+                   Text="You have worked 21 hours this week, here is an overview of your sessions." />
+            <ScrollView Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="pink">
+                <VerticalStackLayout>
+                    <Label Text="Tu by sme asi mali vymysliet nieco ine ked nemame tie sessions" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                    <Label Text="cc" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</views:ContentPageBase>

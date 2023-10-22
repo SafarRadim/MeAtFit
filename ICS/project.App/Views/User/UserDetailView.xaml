@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:project.App.Views"
+                       xmlns:vm="clr-namespace:project.App.ViewModels"
+                       x:Class="project.App.Views.Others.UserDetailView"
+                       xmlns:models="clr-namespace:project.BL.Models;assembly=project.BL"
+                       Title="User Detail"
+                       x:Name="UserDetailViewRoot"
+                       x:DataType="vm:UserDetailViewModel">
+    <VerticalStackLayout Spacing="20">
+        <HorizontalStackLayout HorizontalOptions="End"
+                               Spacing="15"
+                               Padding="20,20,10,-20"
+                               HeightRequest="40">
+            <Button Text="Delete"
+                    CornerRadius="5"
+                    BackgroundColor="Red"
+                    Command="{Binding DeleteCommand}" />
+
+            <Button Text="Edit"
+                    CornerRadius="5"
+                    BackgroundColor="Green"
+                    Command="{Binding GoToEditCommand}" />
+            <Button Text="Log Out"
+                    CornerRadius="5"
+                    BackgroundColor="CornflowerBlue"
+                    Command="{Binding LogoutCommand}" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Image Source="{Binding User.ImageUrl, TargetNullValue='dotnet_bot.png'}"
+                   MaximumHeightRequest="200" />
+            <VerticalStackLayout Padding="15,0,0,0"
+                                 Spacing="10">
+                <Label Text="{Binding User.Name}"
+                       FontSize="30"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding User.Surname}"
+                       FontSize="20"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding User.Email}"
+                       FontSize="20"
+                       FontAttributes="Italic" />
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+        <Label Text="{Binding Txt}" FontSize="30" FontAttributes="Bold" TextColor="Green" HorizontalOptions="Center"/>
+    </VerticalStackLayout>
+</views:ContentPageBase>
