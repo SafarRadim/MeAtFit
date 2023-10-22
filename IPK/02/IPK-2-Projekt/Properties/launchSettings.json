@@ -1,0 +1,31 @@
+{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "empty interface": {
+      "commandName": "Project",
+      "commandLineArgs": "--interface"
+    },
+    "IPv4": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \\Device\\NPF_{F9798E8C-0373-49A2-B7DC-18E8C3870525} -s 10.10.20.86/24\r\n -w 200"
+    },
+    "IPv6": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \\Device\\NPF_{ECFD0E9C-0EA0-4A03-AB9E-DF47E26A92A2} -s FE80::32DE:4BFF:FE5C:6627/125 -w 500"
+    },
+    "no args": {
+      "commandName": "Project"
+    },
+    "Illustration args": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \\Device\\NPF_{ECFD0E9C-0EA0-4A03-AB9E-DF47E26A92A2} -w 1000 -s 192.168.0.5/25 -s 192.168.128.0/29 -s fd00:cafe:0000:face::1/126\r\n"
+    },
+    "ovpn": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \\Device\\NPF_{AF2035DC-F969-4EE7-926E-D11079D6596E} -s 100.65.80.90/28 -w 500"
+    }
+  }
+}

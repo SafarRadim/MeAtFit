@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qYFa/eBiAXTegNsf6gzBYtzUBKTpXVzj8zQZUerBBBi4qPsEpt00lGWzF38A//I0e3JnrWz5oduH+0ALJksreg==",
+  "success": true,
+  "projectFilePath": "D:\\FIT\\IPK\\IPK-1-Projekt\\ipkcpc-src\\ipkcpc.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\safar\\.nuget\\packages\\system.commandline\\2.0.0-beta4.22272.1\\system.commandline.2.0.0-beta4.22272.1.nupkg.sha512"
+  ],
+  "logs": []
+}

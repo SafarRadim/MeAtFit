@@ -1,0 +1,32 @@
+- <`f96ef3d`> 2023-04-14 Initial commit
+- <`ee46cb9`> 2023-04-14 feat(project): Added .gitignore
+- <`25f5628`> 2023-04-14 feat(project): Added basic project structure
+- <`e643e12`> 2023-04-14 feat(project): basic launch properties (IPv6 not included yet)
+- <`1a9a748`> 2023-04-14 feat(project): arg handling
+- <`e7947c5`> 2023-04-14 feat(errors): added custom exceptions
+- <`70c8fb2`> 2023-04-14 feat(parsing)!: IP parsing, host count
+- <`b2e8099`> 2023-04-14 fix(refactor): better naming
+- <`8da7ed7`> 2023-04-14 feat(output): Added scan range print
+- <`65bc319`> 2023-04-14 fix(project): namespace naming
+- <`6888668`> 2023-04-15 fix(refactor): mask -> prefix
+- <`9e667c9`> 2023-04-15 feat(project): correct argument handling
+- <`0eb0710`> 2023-04-15 feat(testing): added first tests
+- <`b6d85d5`> 2023-04-15 feat(ARP)!: SharpPcap enlightement; Arp
+- <`57e9221`> 2023-04-15 fix(project): wait arg fix
+- <`3b3afdb`> 2023-04-15 fix(subnets): added version attribute
+- <`7807bf0`> 2023-04-15 fix(project): cleanup
+- <`715a9c3`> 2023-04-15 feat(IPv4)!: IPv4 scanning done
+- <`cd9f24d`> 2023-04-16 feat(IPv4)!: ICMP over interface
+- <`6984e4a`> 2023-04-16 fix(IPv4): yellow squiggly lines begone!
+- <`610f58f`> 2023-04-16 feat(IPv6)!: Maybe working? Sadly IPv4 is the only thing on my network :(
+- <`3ea57c8`> 2023-04-16 fix(IPv6): ICMPv6 could actually work now.
+- <`a43a2b0`> 2023-04-16 fix(project): Got rid of squiggly lines again
+- <`71b9775`> 2023-04-16 feat(project): Doc comments.
+- <`3597de4`> 2023-04-17 feat(testing): IPv6 + more IPv4 tests
+- <`d088656`> 2023-04-17 feat(project): Last bit of polish + fixed test errors
+- <`3afec1a`> 2023-04-17 feat(project): Added makefile
+- <`1688a18`> 2023-04-17 feat(docs): Updated readme
+- <`629d8a5`> 2023-04-17 feat(project): Better interface output
+- <`e612998`> 2023-04-17 fix(project): few missing exceptions + polish
+- <`c51e02c`> 2023-04-17 fix(exceptions): Imagine that you should catch exceptions that you throw. Unbelivable, am I right?
+- <`fb07e8e`> 2023-04-17 fix(project): final-ish touches

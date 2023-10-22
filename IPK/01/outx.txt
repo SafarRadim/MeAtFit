@@ -1,0 +1,4 @@
+HELLO
+RESULT 3
+BYE
+Connection closed
